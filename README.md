@@ -88,7 +88,7 @@ Isso irá:
 3. Iniciar Backend FastAPI (porta 8000)
 4. Iniciar Frontend Streamlit (porta 8501)
 
-**Acesse `http://localhost:8501` para usar o serviço por Completo**: `http://localhost:8501`
+**Acesse `http://localhost:8501` para usar o serviço por Completo**
 
 **Parar os serviços:**
 ```bash

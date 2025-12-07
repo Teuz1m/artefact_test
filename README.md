@@ -30,7 +30,10 @@ Calculator: operações matemáticas seguras
 
 Get_weather: consulta de clima em tempo real via OpenWeatherMap
 
-**Fluxo Geral**: **Streamlit (Input do Usuário) → FastAPI → LangChain Agent(Escolha se necessita ou nao de ferramentas) → MCP Tools → Resposta ao usuário**
+ **Fluxo Geral:**
+
+  Streamlit (Input do Usuário) → FastAPI → **LangChain Agent** (decide se precisa de ferramentas) → MCP Tools →
+  Resposta ao usuário
 
 # Componentes
 
@@ -213,8 +216,8 @@ Se tivesse mais tempo, implementaria:
 
 ### Funcionalidades
 
-- **Mais ferramentas**: Busca web, consulta a mais APIs
-- **RAG**: Base de conhecimento para busca semantica
+- **Mais ferramentas**: Busca web, consulta a outras APIs
+- **RAG**: Base de conhecimento para busca semântica
 - **Streaming**: Respostas em tempo real via WebSockets, permitindo menor latência
 - **Histórico**: Persistência de conversas a longo prazo em banco de dados
 - **Multi-agente**: Coordenação entre múltiplos agentes especializados

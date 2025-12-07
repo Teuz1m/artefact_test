@@ -67,7 +67,7 @@ cp .env.example .env
 Edite o arquivo `.env` e adicione suas chaves de API:
 
 ```env
-# Obrigatório: OpenAI API
+# Obrigatório: OpenAI API - necessita de uma API KEY da OPENAI com Creditos na conta
 OPENAI_API_KEY=sk-sua-chave-aqui
 OPENAI_MODEL=gpt-4
 

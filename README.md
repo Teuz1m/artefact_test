@@ -213,7 +213,7 @@ Se tivesse mais tempo, implementaria:
 
 ### Funcionalidades
 
-- **Mais ferramentas**: Busca web, consulta mais APIs
+- **Mais ferramentas**: Busca web, consulta a mais APIs
 - **RAG**: Base de conhecimento para busca semantica
 - **Streaming**: Respostas em tempo real via WebSockets, permitindo menor latência
 - **Histórico**: Persistência de conversas a longo prazo em banco de dados

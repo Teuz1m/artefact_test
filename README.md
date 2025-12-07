@@ -185,7 +185,7 @@ Interface web simples e intuitiva:
 
 - Chat interativo
 - Visualização de tools usadas
-- Exemplos sugeridos
+- Exemplos sugeridos de perguntas
 
 ##  Decisões Técnicas
 

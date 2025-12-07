@@ -117,9 +117,7 @@ O frontend estará disponível em `http://localhost:8501`
 python mcp_server.server.py
 ```
 
-```
-
-Você pode testar a API sem o frontend, mas tem de executar Backend Fast API e Servidores MCP:
+**Você pode testar a API sem o frontend, mas tem de executar Backend Fast API e Servidores MCP:**:
 
 ```bash
 curl -X POST "http://localhost:8000/v1/query" \

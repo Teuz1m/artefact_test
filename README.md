@@ -117,7 +117,7 @@ O frontend estará disponível em `http://localhost:8501`
 python mcp_server.server.py
 ```
 
-**Você pode testar a API sem o frontend, mas tem de executar Backend Fast API e Servidores MCP:**:
+**Você pode testar a API sem o frontend, mas tem de executar Backend Fast API e Servidores MCP**:
 
 ```bash
 curl -X POST "http://localhost:8000/v1/query" \
@@ -125,7 +125,7 @@ curl -X POST "http://localhost:8000/v1/query" \
   -d '{"query": "Quanto é 25 * 37?"}'
 
 ```
-### Voce pode acessar documentação interativa: `http://localhost:8000/docs`
+### Você pode acessar documentação interativa: `http://localhost:8000/docs`
 ```
 /v1/query - Processa query de entrada do usuário
 /v1/health - Health check da API

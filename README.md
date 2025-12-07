@@ -92,7 +92,7 @@ Isso irá:
 **Parar os serviços:**
 ```bash
 docker-compose down
-
+```
 
 
 

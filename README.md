@@ -276,12 +276,6 @@ pytest -v
 └── frontend/
     └── app.py
 ```
-
-## Autor
-**Mateus Carvalho Silva**
-- Back-End Developer
-- Experiência com: Python, LangChain, LangGraph, CrewAI, FastAPI, PostgreSQL
-
 ## 📄 Licença
 
 Este projeto foi desenvolvido como parte de um desafio técnico para vaga de AI Engineer Júnior.

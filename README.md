@@ -30,8 +30,7 @@ Calculator: operações matemáticas seguras
 
 Get_weather: consulta de clima em tempo real via OpenWeatherMap
 
-**Fluxo Geral**:Streamlit → FastAPI → LangChain Agent → MCP Tools → Resposta ao usuário
-```
+**Fluxo Geral**: **Streamlit (Input do Usuário) → FastAPI → LangChain Agent(Escolha se necessita ou nao de ferramentas) → MCP Tools → Resposta ao usuário**
 
 # Componentes
 

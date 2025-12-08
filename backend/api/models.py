@@ -1,6 +1,3 @@
-"""
-Modelos Pydantic para requests e responses da API.
-"""
 from pydantic import BaseModel, Field
 from typing import List, Dict, Any, Optional
 
@@ -8,7 +5,6 @@ from typing import List, Dict, Any, Optional
 class QueryRequest(BaseModel):
     """Request para processar uma query do usuário."""
     query: str = Field(..., description="Pergunta do usuário")
-    #query: str = Field(..., description="Pergunta do usuário", min_length=1)
 
 
 class IntermediateStep(BaseModel):

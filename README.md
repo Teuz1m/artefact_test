@@ -235,7 +235,7 @@ Se tivesse mais tempo, implementaria:
 - **Linting**
 
 
-## 🧪 Testes
+##  Testes
 
 
 ### Rodar todos os testes
@@ -274,7 +274,7 @@ pytest -v
 └── frontend/
     └── app.py
 ```
-## 📄 Licença
+##  Licença
 
 Este projeto foi desenvolvido como parte de um desafio técnico para vaga de AI Engineer Júnior.
 

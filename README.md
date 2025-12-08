@@ -1,126 +1,130 @@
 #  AI Assistant Vaga AI Engineer Júnior
 
-Assistente de IA inteligente que identifica automaticamente quando usar ferramentas externas (calculadora) versus conhecimento base do LLM.
+Intelligent AI assistant that automatically identifies when to use external tools (calculator) versus the LLM’s built-in knowledge.
 
-##  Objetivo
+##  Objective
 
-Criar um assistente que:
-- Identifica perguntas matemáticas automaticamente
-- Usa calculadora para cálculos precisos
-- Responde com conhecimento base do LLM para outras perguntas
-- Demonstra integração de LLMs com ferramentas externas
+Create an assistant that:
 
-##  Arquitetura
+Automatically identifies mathematical questions
 
-A arquitetura segue um modelo modular e desacoplado:
+Uses a calculator for precise calculations
 
-1. Frontend (Streamlit — porta 8501)
+Responds using the LLM’s base knowledge for other questions
 
-Interface interativa responsável por capturar inputs e exibir as respostas.
+Demonstrates integration between LLMs and external tools
 
-2. Backend (FastAPI — porta 8000)
+##  Architecture
 
-Gateway de comunicação entre o usuário e o agente.
+The architecture follows a modular and decoupled model:
 
-3. MCP Server (FastMCP — porta 8001)
+1. Frontend (Streamlit — port 8501)
 
-Servidor que expõe ferramentas determinísticas ao agente LLM:
+Interactive interface responsible for capturing inputs and displaying responses.
 
-Calculator: operações matemáticas seguras
+2. Backend (FastAPI — port 8000)
 
-Get_weather: consulta de clima em tempo real via OpenWeatherMap
+Communication gateway between the user and the agent.
 
- **Fluxo Geral:**
+3. MCP Server (FastMCP — port 8001)
 
-  Streamlit (Input do Usuário) → FastAPI → **LangChain Agent** (decide se precisa de ferramentas) → MCP Tools →
-  Resposta ao usuário
+Server exposing deterministic tools to the LLM agent:
 
-# Componentes
+Calculator: secure mathematical operations
+Get_weather: real-time weather queries via OpenWeatherMap
 
-1. **MCP Server (FastMCP)**: Servidor de ferramentas
-2. **Backend FastAPI**: API REST com agente LangChain
-3. **Frontend Streamlit**: Interface web
+ **General Flow:**
 
-##Como Executar
+Streamlit (User Input) → FastAPI → **LangChain Agent** (decides whether tools are needed) → MCP Tools →
+Response to the user
 
+# Components
 
-### Instalação
+1. **MCP Server (FastMCP)**: Tool server
+2. **FastAPI Backend**: REST API with LangChain agent
+3. **Streamlit Frontend**: Web interface
 
-1. **Clone o repositório**
+# How to Run
 
-2. **Crie ambiente virtual e instale dependências**:
+Installation
+
+1. **Clone the repository**
+
+2. **Create a virtual environment and install dependencies**:
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate
+python3.12 -m venv venv
+source ./venv/bin/activate
 
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-3. **Configure as variáveis de ambiente**:
+3. **Configure environment variables**:
 
 ```bash
 cp .env.example .env
 ```
 
-Edite o arquivo `.env` e adicione suas chaves de API:
+Edit the `.env` file and add your API keys:
 
-```env
-# Obrigatório: OpenAI API - necessita de uma API KEY da OPENAI com Creditos na conta
-OPENAI_API_KEY=sk-sua-chave-aqui
+# Required: OpenAI API – you need an OPENAI API KEY with credits in your account
+OPENAI_API_KEY=sk-your-key-here
 OPENAI_MODEL=gpt-4
 
-#Weather API (para usar a tool get_weather)
-# Obtenha grátis em: https://openweathermap.org/api
-OPENWEATHER_API_KEY=sua-chave-openweather-aqui
-```
+# Weather API (to use the get_weather tool)
+# Get it for free at: https://openweathermap.org/api
+OPENWEATHER_API_KEY=your-openweather-key-here
 
-###  Executar com Docker (Recomendado)
+## Run with Docker (Recommended)
 
-A forma mais fácil de subir a aplicação é usando Docker Compose:
+The easiest way to start the application is using Docker Compose:
 
 ```bash
 docker-compose up --build
 ```
 
-Isso irá:
-1. Construir as imagens Docker
-2. Iniciar MCP Server (porta 8001)
-3. Iniciar Backend FastAPI (porta 8000)
-4. Iniciar Frontend Streamlit (porta 8501)
+This will:
 
-**Acesse `http://localhost:8501` para usar o serviço por Completo**
+1. Build Docker images
+2. Start MCP Server (port 8001)
+3. Start FastAPI Backend (port 8000)
+4. Start Streamlit Frontend (port 8501)
 
-**Parar os serviços:**
+**Access `http://localhost:8501` to use the full service**
+
+
+**Stop the services:**
 ```bash
 docker-compose down
 ```
 
+Run each service **separately**
 
+**Terminal 1 – FastAPI Backend**
 
-Executar cada serviço **separadamente**
-
-**Terminal 1 - Backend FastAPI**:
 ```bash
 python -m backend.main
 ```
 
-O backend estará disponível em `http://localhost:8000`
 
-**Terminal 2 - Frontend Streamlit**:
+Backend available at `http://localhost:8000`
+
+**Terminal 2 – Streamlit Frontend**:
+
 ```bash
 streamlit run frontend/app.py
 ```
 
-O frontend estará disponível em `http://localhost:8501`
+Frontend available at `http://localhost:8501`
 
-**Terminal 3 - Servidores MCP**:
+**Terminal 3 – MCP Servers**:
+
 ```bash
 python mcp_server.server.py
 ```
 
-**Você pode testar a API sem o frontend, mas tem de executar Backend Fast API e Servidores MCP**:
+**You can test the API without the frontend, but you must run both FastAPI Backend and the MCP Servers**:
 
 ```bash
 curl -X POST "http://localhost:8000/v1/query" \
@@ -128,131 +132,127 @@ curl -X POST "http://localhost:8000/v1/query" \
   -d '{"query": "Quanto é 25 * 37?"}'
 
 ```
-### Você pode acessar documentação interativa: `http://localhost:8000/docs`
+### You can access interactive documentation at: `http://localhost:8000/docs`
 ```
-/v1/query - Processa query de entrada do usuário
-/v1/health - Health check da API
-/v1/metric - Retorna métricas de uso do sistema
+/v1/query - Processes the user input query
+/v1/health - API health check
+/v1/metric - Returns system usage metrics
 ```
 
-**Os logs da API estão disponiveis na pasta 'logs'**
 
+**API logs are available in the 'logs' folder**
 
-##  Lógica de Implementação
-A lógica utilizada foi ter uma API criada com FastAPI para ter um agente LLM que decidisse qual tools MCP usar baseada na entrada do usuário, para isso criei um MCP Server que contém duas ferramentas : calculator - uma calculado em python e get_wheater - conexao com uma API externa.
+## Implementation Logic
 
-Foi dockerizado para estar sempre pronto para ser executado em diferentes servless.
+The logic used was to have an API created with FastAPI to host an LLM agent that decides which MCP tools to use based on user input. For that, I created an MCP Server containing two tools: calculator — a Python-based calculator, and get_weather — integration with an external API.
 
-A intenção era deixar a aplicação o mais modular possivel, como um microsserviço.
+It was dockerized so it is always ready to be executed across different serverless environments.
 
-### 1. MCP Server com FastMCP
+The intention was to keep the application as modular as possible, like a microservice.
 
-Implementei um servidor MCP usando FastMCP que expõe 2 ferramentas:
+## 1. MCP Server with FastMCP
+
+I implemented an MCP server using FastMCP that exposes 2 tools:
 
 **Tool 1: Calculator**
-- **Segurança**: Usa AST (Abstract Syntax Tree) para parse seguro.
-- **Operações suportadas**: `+`, `-`, `*`, `/`, `**` (potência), parênteses
 
+- **Security**: Uses AST (Abstract Syntax Tree) for safe parsing.
+- **Supported operations**: `+`, `-`, `*`, `/`, `**` (potencia), parentheses
 
 **Tool 2: Weather (get_weather)**
-- **API**: OpenWeatherMap (gratuita, 60 calls/min)
-- **Parâmetros**: city (string), country_code (default: "BR")
-- **Retorna**: Temperatura, descrição, umidade, velocidade do vento
 
+- **API**: OpenWeatherMap (free, 60 calls/min)
+- **Parameters**: city (string), country_code (default: "BR")
+- **Returns**: temperature, description, humidity, wind speed
 
-### 2. LangChain Agent
+## 2. LangChain Agent
 
-O agente usa OpenAI Functions para decidir automaticamente quando usar a calculadora ou a consulta do clima:
+The agent uses OpenAI Functions to automatically decide when to use the calculator or weather tool:
 
-- **System Prompt**: Instruções claras sobre quando usar cada ferramenta
-- **OpenAI Functions Agent**: Framework nativo do LangChain para function calling
-- **Integração com MCP**: Conecta o agente às ferramentas do MCP Server
+- **System Prompt**: Clear instructions about when to use each tool
+- **OpenAI Functions Agent**: LangChain’s native function-calling framework
+- **MCP Integration**: Connects the agent to the MCP Server tools
 
+## 3. FastAPI Backend
 
-### 3. Backend FastAPI
+REST API exposing endpoint `/v1/query`:
 
-API REST que expõe endpoint `/v1/query`:
-
-- **POST /v1/query**: Processa pergunta do usuário
+- **POST /v1/query**: Processes the user question
 - **GET /v1/health**: Health check
-- **CORS habilitado**: Para comunicação com frontend Streamlit
+- **CORS enabled**: For communication with Streamlit frontend
 
-### 4. Frontend Streamlit
+## 4. Streamlit Frontend
 
-Interface web simples e intuitiva:
+Simple and intuitive web interface:
 
-- Chat interativo
-- Visualização de tools usadas
-- Exemplos sugeridos de perguntas
+- Interactive chat
+- Visualization of used tools
+- Suggested example questions
 
-##  Decisões Técnicas
+## Technical Decisions
 
-### Por que FastMCP?
+### Why FastMCP?
 
-- **Simplicidade**: Reduz boilerplate comparado com implementação manual
-- **Padronização**: Segue o Model Context Protocol para conexões com LLM
-- **Integração fácil**: Funciona nativamente com LangChain
-- **Desacoplamento**: Pode ser usado em um conteiner separadamente para ser usado por outros agentes LLM
+- **Simplicity**: Reduces boilerplate compared to manual implementation
+- **Standardization**: Follows the Model Context Protocol for LLM connections
+- **Easy integration**: Works natively with LangChain
+- **Decoupling**: Can run in a separate container to serve multiple LLM agents
 
-### Por que LangChain?
+### Why LangChain?
 
-- **Agents prontos**: Framework maduro para agentes com ferramentas
-- **OpenAI Functions**: Suporte nativo a function calling
+- **Built-in agents**: Mature framework for tool-using agents
+- **OpenAI Functions**: Native function-calling support
 
-### Por que FastAPI?
+### Why FastAPI?
 
-- **Async nativo**: Suporta operações assíncronas do LangChain
-- **Type hints**: Validação automática com Pydantic
-- **Documentação automática**: Swagger UI
+- **Native async**: Supports LangChain async operations
+- **Type hints**: Automatic validation with Pydantic
+- **Automatic documentation**: Swagger UI
 
-### Por que Streamlit?
+### Why Streamlit?
 
-- **Desenvolvimento rápido**
-- **Ideal para demonstrações**
+- **Fast development**
+- **Ideal for demos**
 
-##  Melhorias Futuras
+## Future Improvements
 
-Se tivesse mais tempo, implementaria:
+If I had more time, I would implement:
 
-### Funcionalidades
+### Features
 
-- **Mais ferramentas**: Busca web, consulta a outras APIs
-- **RAG**: Base de conhecimento para busca semântica
-- **Streaming**: Respostas em tempo real via WebSockets, permitindo menor latência
-- **Histórico**: Persistência de conversas a longo prazo em banco de dados
-- **Multi-agente**: Coordenação entre múltiplos agentes especializados
+- **More tools**: Web search, other API integrations
+- **RAG**: Knowledge base for semantic search
+- **Streaming**: Real-time responses via WebSockets
+- **History**: Long-term conversation persistence in a database
+- **Multi-agent**: Coordination between specialized agents
 
-### Infraestrutura
-- **Modularização**: Cada MCP Server com seu própio conteiner, permitindo ser usado por outros Agentes LLM
-- **Rate Limiting**: Proteção contra abuso
-- **Autenticação**: JWT ou API Keys
-- **Observabilidade**: LangSmith para tracing de monitoramento
-- **Mensageria**: Usar RabbitMQ para ter um sistema de Filas na conexao LLM <-> MCP Server 
+### Infrastructure
 
-### Qualidade
+- **Modularization**: Each MCP Server in its own container for reuse
+- **Rate limiting**: Protection against abuse
+- **Authentication**: JWT or API keys
+- **Observability**: LangSmith for tracing and monitoring
+- **Messaging**: RabbitMQ to manage communication between LLM <-> MCP Server
 
-- **CI/CD**: GitHub Actions para testes e deploy automáticos
+### Quality
+
+- **CI/CD**: GitHub Actions for automatic testing and deployment
 - **Linting**
 
+## Tests
+## Run all tests
 
-##  Testes
+Keep the MCP service running:
 
-
-### Rodar todos os testes
-
-Deixa o serviço MCP online :
-  ```bash
+ ```bash
     cd mcp_server
     python ./server.py
   ```
-
 ```bash
 pytest -v
 ```
 
-## Estrutura do Projeto
-
-```
+## Project Structure
 .
 ├── README.md
 ├── requirements.txt
@@ -273,9 +273,7 @@ pytest -v
 │
 └── frontend/
     └── app.py
-```
-##  Licença
 
-Este projeto foi desenvolvido como parte de um desafio técnico para vaga de AI Engineer Júnior.
+## License
 
----
+This project was developed as part of a technical challenge for the AI Engineer Junior position.
